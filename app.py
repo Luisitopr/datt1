@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+import numpy as np
+
 
 # Cargar el dataset localmente con cache
 @st.cache_data
@@ -66,7 +68,27 @@ st.plotly_chart(fig)
 st.markdown('Esta gráfica de barras muestra el número de casos de COVID-19 por estado en México.')
 
 # Scatter Plot
-st.header('Relación entre Edad y Intubacion')
-fig = px.scatter(data, x='EDAD', y='INTUBADO', labels={'EDAD': 'Edad', 'FECHA_INGRESO': 'FECHA INGRESO DIA'})
+st.header('Relación entre Edad y Intubación')
+filtered_data = data[data['INTUBADO'].isin([1, 2])]
+filtered_data['INTUBADO'] = filtered_data['INTUBADO'].replace({1: 'Sí', 2: 'No'})
+
+# Scatter Plot - Relación entre Edad e Intubación
+st.header('Relación entre Edad y Intubación')
+filtered_data = data[data['INTUBADO'].isin([1, 2])]
+filtered_data['INTUBADO_NUM'] = filtered_data['INTUBADO'].replace({1: 1, 2: 0})
+filtered_data['JITTER_INTUBADO'] = filtered_data['INTUBADO_NUM'] + np.random.uniform(-0.1, 0.1, size=len(filtered_data))
+
+
+fig = px.scatter(
+    filtered_data, 
+    x='EDAD', 
+    y='JITTER_INTUBADO', 
+    color='INTUBADO_NUM', 
+    color_continuous_scale=['blue', 'red'],
+    opacity=0.5,
+    labels={'EDAD': 'Edad', 'JITTER_INTUBADO': '¿Fue Intubado? (0 = No, 1 = Sí)'},
+    title='Relación entre Edad e Intubación'
+)
+
 st.plotly_chart(fig)
-st.markdown('Esta gráfica de dispersión muestra la relación entre la edad de los pacientes y su fecha de intubacion.')
+st.markdown('Esta gráfica de dispersión muestra la relación entre la edad de los pacientes y si fueron intubados.')
