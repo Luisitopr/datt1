@@ -7,14 +7,14 @@ import plotly.express as px
 # Cargar el dataset localmente con cache
 @st.cache_data
 def load_data():
-    df = pd.read_csv('/home/luisitopr/Documentos/covid/dataset/covid-19_general_MX.csv')  # Ruta local del archivo
+    df = pd.read_csv('covid-19_general_MX.csv')  # Ruta local del archivo
     return df
 
 # Cargar datos
 data = load_data()
 
 # Mostrar Logo y Autor
-st.image('/home/luisitopr/Documentos/covid/logo.png', width=150)  # Reemplaza con el archivo correcto de tu logo
+st.image('logo.png', width=150)  # Reemplaza con el archivo correcto de tu logo
 st.markdown('Autor: Luis Galindo')
 
 # Visualización de dataset
