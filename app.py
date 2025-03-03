@@ -66,7 +66,7 @@ st.plotly_chart(fig)
 st.markdown('Esta gráfica de barras muestra el número de casos de COVID-19 por estado en México.')
 
 # Scatter Plot
-st.header('Relación entre Edad y Fecha de ingreso')
-fig = px.scatter(data, x='EDAD', y='FECHA_INGRESO', labels={'EDAD': 'Edad', 'FECHA_INGRESO': 'FECHA INGRESO DIA'})
+st.header('Relación entre Edad y Intubacion')
+fig = px.scatter(data, x='EDAD', y='INTUBADO', labels={'EDAD': 'Edad', 'FECHA_INGRESO': 'FECHA INGRESO DIA'})
 st.plotly_chart(fig)
-st.markdown('Esta gráfica de dispersión muestra la relación entre la edad de los pacientes y su fecha de ingreso.')
+st.markdown('Esta gráfica de dispersión muestra la relación entre la edad de los pacientes y su fecha de intubacion.')
